@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "845574836490",
+    "project_id": "table-time-59639",
+    "storage_bucket": "table-time-59639.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845574836490:android:b65904649175f1246aaaf3",
+        "android_client_info": {
+          "package_name": "com.example.tabletime"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOo_SyG22IsOgTfQOi-ZnmkUfyDnJYo2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
