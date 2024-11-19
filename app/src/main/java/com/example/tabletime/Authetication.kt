@@ -7,11 +7,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.auth.AuthState
 
 class AuthViewModel: ViewModel() {
+
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val auth_State = MutableLiveData<AuthState>()
-    val authstate: LiveData<AuthState> = auth_State
+    val authState: LiveData<AuthState> = auth_State
 
-
+    init {
+        testAuthStatus()
+    }
     fun testAuthStatus() {
         if (auth.currentUser == null) {
             auth_State.value = AuthState.Unauthenticated
@@ -45,7 +48,7 @@ class AuthViewModel: ViewModel() {
             return
         }
         auth_State.value = AuthState.loading
-        auth.signInWithEmailAndPassword(email, password)
+        auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener{ task ->
                 if(task.isSuccessful){
                     auth_State.value = AuthState.Authenticated
@@ -72,4 +75,6 @@ class AuthViewModel: ViewModel() {
         object loading : AuthState()
         data class Error(val message: String) : AuthState()
     }
+
+
 }
