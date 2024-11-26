@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -140,7 +141,8 @@ fun DisplayField(label: String, value: String) {
 @Composable
 fun ProfileScreen(
     modifier: Modifier,
-    authViewModel: AuthViewModel
+    authViewModel: AuthViewModel,
+    navController: NavController
 ) {
     val email = authViewModel.getCurrentUserEmail() ?: "Unavailable"
     var name by remember { mutableStateOf("Ogundeko Ayooluwa") }
@@ -189,8 +191,7 @@ fun ProfileScreen(
         // Save Button
         Button(
             onClick = {
-                // Save logic here, like sending updated profile to backend
-                // Example: authViewModel.updateUserProfile(name, phone)
+                navController.navigate("Home")
             },
             modifier = Modifier
                 .fillMaxWidth(0.6f)
@@ -254,43 +255,49 @@ fun UserProfileScreen(
             }
         }
     ){
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.TopCenter
-    ) {
-        // Smaller "MENU" Button
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 40.dp), // Reduced top padding
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.TopCenter
         ) {
-            Button(
-                onClick = {
-                    scope.launch {
-                        drawerState.open()
-                    }
-                },
+            // "MENU" Button
+            Column(
                 modifier = Modifier
-                    .size(100.dp)  // Set a smaller size for the button
-                    .background(Color(0xFF1976D2)), // Darker blue for the button
-                shape = MaterialTheme.shapes.small // Rounded corners for a smaller button
+                    .fillMaxWidth()
+                    .padding(top = 80.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = "MENU",
-                    fontSize = 14.sp, // Smaller font size
-                    color = Color.White
-                )
+                Button(
+                    onClick = {
+                        scope.launch {
+                            drawerState.open()
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(0.7f)
+                        .height(50.dp)
+                        .background(Color(0xFF1976D2)), // Darker blue for the button
+                ) {
+                    Text(
+                        text = "MENU",
+                        fontSize = 18.sp,
+                        color = Color.White
+                    )
+                }
             }
-        }
                 // Profile Content Based on Window Size
                 when (windowSize.width) {
-                    WindowType.SMALL -> ProfileScreen(modifier, authViewModel)
+                    WindowType.SMALL -> ProfileScreen(modifier, authViewModel, navController)
                     else -> ProfileLandscape(modifier, authViewModel)
                 }
             }
         }
     }
-
+// DrawerItems data class
+data class DrawerItems(
+    val icon: ImageVector,
+    val text: String,
+    val badgeCount: Int,
+    val hasBadge: Boolean
+)
 
 
