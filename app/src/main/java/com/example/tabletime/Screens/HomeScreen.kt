@@ -6,16 +6,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
-
-
-
-
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -24,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -51,6 +45,11 @@ fun HomeScreen(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+    // State for the user profile details
+    var userName by remember { mutableStateOf("") }
+    val userEmail = authViewModel.getCurrentUserEmail() ?: "Unknown Email"
+
+    // Modal drawer with items
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -102,6 +101,15 @@ fun HomeScreen(
                                 scope.launch {
                                     drawerState.close()
                                 }
+
+                                // Handle specific drawer item actions
+                                when (it.text) {
+                                    "User Profile" -> navController.navigate("UserProfileScreen")
+                                    "Sign out" -> {
+                                        authViewModel.signout()
+                                        navController.navigate("Signin")
+                                    }
+                                }
                             },
                             modifier = Modifier.padding(horizontal = 16.dp),
                             icon = {
@@ -148,41 +156,11 @@ fun HomeScreen(
                 }
             }
         }
-
-        // Space between "MENU" and "Log out" sections
-        Spacer(modifier = Modifier.height(50.dp))
-
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.BottomCenter
-        ) {
-            Column(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(bottom = 50.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                // "Log out" Button
-                TextButton(
-                    onClick = {
-                        authViewModel.signout()
-                        navController.navigate("Signin")
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth(0.7f)
-                        .background(Color.Transparent)
-                ) {
-                    Text(
-                        text = "Log out",
-                        fontSize = 18.sp,
-                        color = Color(0xFF1976D2) // Same blue shade as the button
-                    )
-                }
-            }
-        }
     }
 }
+
+
+
 // DrawerItems data class
 data class DrawerItems(
     val icon: ImageVector,
