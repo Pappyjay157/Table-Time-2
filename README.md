@@ -1,6 +1,6 @@
 # Table Time 
 
-Welcome to **Table Time **, a restaurant booking application designed to simplify table reservations and management for both customers and restaurant owners. This README provides a detailed guide to the project, including its purpose, features, setup instructions, and contribution guidelines.
+Welcome to **Table Time**, a restaurant booking application designed to simplify table reservations and management for both customers and restaurant owners. This README provides a detailed guide to the project, including its purpose, features, setup instructions, and contribution guidelines.
 
 ---
 
@@ -18,7 +18,7 @@ Welcome to **Table Time **, a restaurant booking application designed to simplif
 
 ## Project Overview
 
-**Table Time ** is a mobile application built to streamline the process of booking tables at restaurants. It allows users to browse available tables, make reservations, and manage bookings with ease. Restaurant owners can use the app to manage table availability and track reservations in real-time.
+**Table Time** is a mobile application built to streamline the process of booking tables at restaurants. It allows users to browse available tables, make reservations, and manage bookings with ease. Restaurant owners can use the app to manage table availability and track reservations in real-time.
 
 ---
 
